@@ -29,3 +29,6 @@ jobs:
 
       - name: Directory Permission
         run: chmod -R 777 storage bootstrap/cache
+
+      - name: Phpstan
+        run: ./vendor/bin/phpstan analyse --memory-limit=1GB
