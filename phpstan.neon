@@ -1,4 +1,4 @@
 parameters:
     paths:
         - app
-    level: 11
+    level: 5
