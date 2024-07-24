@@ -52,7 +52,9 @@ jobs:
           echo "${{ secrets.SSH_KEY }}" > ./id_rsa
           chmod 600 id_rsa
 
-
+      - name: Ensure the destination directory exists
+        run: |
+          ssh -o StrictHostKeyChecking=no -i ./id_rsa ${{ secrets.SSH_CONNECTION_DEMO }} 'mkdir -p /home/mohammad'
 
       - name: run deploy script
         run: |
