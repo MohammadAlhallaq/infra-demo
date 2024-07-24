@@ -52,7 +52,6 @@ jobs:
           echo "${{ secrets.SSH_KEY }}" >> ./id_rsa
           chmod 600 id_rsa
 
-
       - name: run deploy script
         run: |
           scp -C -o StrictHostKeyChecking=no -i ./id_rsa ./deployment/bin/deploy.sh ${{ secrets.SSH_CONNECTION_DEMO }}:/home/mohammad/deploy.sh
