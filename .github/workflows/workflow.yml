@@ -52,6 +52,7 @@ jobs:
           echo "${{ secrets.SSH_KEY }}" > ./id_rsa
           chmod 600 id_rsa
 
-      - name: Debug SSH Connection String
+
+      - name: run deploy script
         run: |
-          echo "SSH Connection String: ${{ secrets.SSH_CONNECTION_DEMO }}"
+          scp -C -o StrictHostKeyChecking=no -i ./id_rsa ./deployment/bin/deploy.sh ${{ secrets.SSH_CONNECTION_DEMO }}:/home/mohammad/deploy.sh
