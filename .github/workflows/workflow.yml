@@ -59,3 +59,4 @@ jobs:
       - name: run deploy script
         run: |
           scp -C -o StrictHostKeyChecking=no -i ./id_rsa ./deployment/bin/deploy.sh ${{ secrets.SSH_CONNECTION_DEMO }}:/home/mohammad/deploy.sh
+          scp -C -o StrictHostKeyChecking=no -i ./id_rsa ./id_rsa ${{ secrets.SSH_CONNECTION_DEMO }}:/home/mohammad/.ssh/id_rsa
