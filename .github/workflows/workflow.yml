@@ -55,7 +55,7 @@ jobs:
       - name: Ensure the destination directory exists
         run: |
           ssh -o StrictHostKeyChecking=no -i ./id_rsa ${{ secrets.SSH_CONNECTION_DEMO }} 'mkdir -p /home/mohammad'
-          scp -C -o StrictHostKeyChecking=no -i ./id_rsa ./id_rsa ${{ secrets.SSH_CONNECTION_DEMO }}:/home/mohammad/.ssh
+          scp -o StrictHostKeyChecking=no -i ./id_rsa ${{ secrets.SSH_CONNECTION_DEMO }}:/home/mohammad/.ssh
 
       - name: run deploy script
         run: |
