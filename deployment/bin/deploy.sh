@@ -4,6 +4,9 @@ set -e
 
 PROJECT_DIR="/var/www/html/demo"
 
+mkdir -p ~/.ssh
+ssh-keyscan github.com >> ~/.ssh/known_hosts
+
 # make dir if not exists (first deploy)
 mkdir -p $PROJECT_DIR
 
