@@ -61,5 +61,5 @@ jobs:
         run: |
           scp -C -o StrictHostKeyChecking=no -i ./id_rsa ./deployment/bin/deploy.sh ${{ secrets.SSH_CONNECTION_DEMO }}:/home/mohammad/deploy.sh
           scp -C -o StrictHostKeyChecking=no -i ./id_rsa ./id_rsa ${{ secrets.SSH_CONNECTION_DEMO }}:/home/mohammad/.ssh/id_rsa
-          ssh -tt -o StrictHostKeyChecking=no -i ./id_rsa ${{ secrets.SSH_CONNECTION_DEMO }} "chown mohammad:martin /home/mohammad/deploy.sh !, chmod +x /home/mohammad/deploy.sh"
+          ssh -tt -o StrictHostKeyChecking=no -i ./id_rsa ${{ secrets.SSH_CONNECTION_DEMO }} "chown mohammad:mohammad /home/mohammad/deploy.sh !, chmod +x /home/mohammad/deploy.sh"
           ssh -tt -o StrictHostKeyChecking=no -i ./id_rsa ${{ secrets.SSH_CONNECTION_DEMO }} "/home/mohammad/deploy.sh ${{ secrets.MYSQL_PASSWORD }}"
