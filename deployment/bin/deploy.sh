@@ -2,8 +2,6 @@
 
 set -e
 
-MYSQL_PASSWORD=$1
-
 PROJECT_DIR="/var/www/html/demo"
 
 # make dir if not exists (first deploy)
@@ -15,8 +13,8 @@ git config --global --add safe.directory $PROJECT_DIR
 
 # the project has not been cloned yet (first deploy)
 if [ ! -d $PROJECT_DIR"/.git" ]; then
-  GIT_SSH_COMMAND='ssh -i /home/id_rsa -o IdentitiesOnly=yes' git clone git@github.com:MohammadAlhallaq/infra-demo.git
+  GIT_SSH_COMMAND='ssh -i /home/.ssh/id_rsa -o IdentitiesOnly=yes' git clone git@github.com:MohammadAlhallaq/infra-demo.git
 else
-  GIT_SSH_COMMAND='ssh -i /home/id_rsa -o IdentitiesOnly=yes' git pull
+  GIT_SSH_COMMAND='ssh -i /home/.ssh/id_rsa -o IdentitiesOnly=yes' git pull
 fi
 
