@@ -4,7 +4,7 @@ set -e
 
 MYSQL_PASSWORD=$1
 
-PROJECT_DIR="/var/www/html/posts"
+PROJECT_DIR="/var/www/html/demo"
 
 # make dir if not exists (first deploy)
 mkdir -p $PROJECT_DIR
