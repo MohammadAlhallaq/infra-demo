@@ -20,4 +20,3 @@ if [ ! -d $PROJECT_DIR"/.git" ]; then
 else
   GIT_SSH_COMMAND='ssh -i /home/mohammad/.ssh/id_rsa -o IdentitiesOnly=yes' git pull
 fi
-
