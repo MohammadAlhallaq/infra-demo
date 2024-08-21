@@ -7,7 +7,7 @@ PROJECT_DIR="/var/www/html/demo"
 ssh-keyscan github.com >> ~/.ssh/known_hosts
 
 # make dir if not exists (first deploy)
-sudo mkdir -p $PROJECT_DIR
+mkdir -p $PROJECT_DIR
 
 cd $PROJECT_DIR
 
