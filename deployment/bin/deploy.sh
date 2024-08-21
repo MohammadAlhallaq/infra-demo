@@ -2,7 +2,7 @@
 
 set -e
 
-PROJECT_DIR="/var/www/html/demo"
+PROJECT_DIR="/var/www/html"
 
 ssh-keyscan github.com >> ~/.ssh/known_hosts
 
