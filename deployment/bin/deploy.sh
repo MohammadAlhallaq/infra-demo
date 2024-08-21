@@ -14,7 +14,7 @@ cd $PROJECT_DIR
 git config --global --add safe.directory $PROJECT_DIR
 
 # the project has not been cloned yet (first deploy)
-if [ ! -d $PROJECT_DIR"/.git" ]; then
+if [ ! -d "$PROJECT_DIR/.git" ]; then
   GIT_SSH_COMMAND='ssh -i /home/mohammad/.ssh/id_rsa -o IdentitiesOnly=yes' git clone git@github.com:MohammadAlhallaq/infra-demo.git
 else
   GIT_SSH_COMMAND='ssh -i /home/mohammad/.ssh/id_rsa -o IdentitiesOnly=yes' git pull
@@ -26,7 +26,7 @@ fi
 
 # cd $PROJECT_DIR"/api"
 
-composer install --no-interaction --optimize-autoloader --no-dev
+# composer install --no-interaction --optimize-autoloader --no-dev
 #
 ## initialize .env if does not exist (first deploy)
 #if [ ! -f $PROJECT_DIR"/.env" ]; then
