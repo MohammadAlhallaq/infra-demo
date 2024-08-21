@@ -20,13 +20,13 @@ else
   GIT_SSH_COMMAND='ssh -i /home/mohammad/.ssh/id_rsa -o IdentitiesOnly=yes' git pull
 fi
 
-#cd $PROJECT_DIR"/frontend"
-#npm install
-#npm run build
-#
-#cd $PROJECT_DIR"/api"
-#
-#composer install --no-interaction --optimize-autoloader --no-dev
+# cd $PROJECT_DIR"/frontend"
+# npm install
+# npm run build
+
+# cd $PROJECT_DIR"/api"
+
+composer install --no-interaction --optimize-autoloader --no-dev
 #
 ## initialize .env if does not exist (first deploy)
 #if [ ! -f $PROJECT_DIR"/.env" ]; then
