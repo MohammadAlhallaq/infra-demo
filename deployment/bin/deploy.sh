@@ -2,7 +2,7 @@
 
 set -e
 
-PROJECT_DIR="/var/www/html"
+PROJECT_DIR="/var/www/html/infra-demo"
 
 ssh-keyscan github.com >> ~/.ssh/known_hosts
 
@@ -26,7 +26,7 @@ fi
 
 # cd $PROJECT_DIR"/api"
 
-composer install --no-interaction --optimize-autoloader --no-dev
+# composer install --no-interaction --optimize-autoloader --no-dev
 #
 ## initialize .env if does not exist (first deploy)
 #if [ ! -f $PROJECT_DIR"/.env" ]; then
