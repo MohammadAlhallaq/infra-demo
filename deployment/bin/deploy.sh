@@ -3,6 +3,7 @@
 set -e
 
 PROJECT_DIR="/var/www/html/infra-demo"
+MYSQL_PASSWORD=$1
 
 ssh-keyscan github.com >> ~/.ssh/known_hosts
 
