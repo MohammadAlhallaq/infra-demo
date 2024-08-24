@@ -2,8 +2,8 @@
 
 set -e
 
-PROJECT_DIR="/var/www/html/infra-demo"
 MYSQL_PASSWORD=$1
+PROJECT_DIR="/var/www/html/infra-demo"
 
 ssh-keyscan github.com >> ~/.ssh/known_hosts
 
