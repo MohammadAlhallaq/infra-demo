@@ -25,6 +25,7 @@ fi
 # npm run build
 
 # cd $PROJECT_DIR"/api"
+
 composer install --no-interaction --optimize-autoloader --no-dev
 #
 ## initialize .env if does not exist (first deploy)
