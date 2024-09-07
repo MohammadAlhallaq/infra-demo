@@ -51,17 +51,17 @@ php artisan view:cache
 
 php artisan up
 
-#sudo cp $PROJECT_DIR"/deployment/config/php-fpm/www.conf" /etc/php/8.1/fpm/pool.d/www.conf
-#sudo cp $PROJECT_DIR"/deployment/config/php-fpm/php.ini" /etc/php/8.1/fpm/conf.d/php.ini
-#sudo systemctl restart php8.1-fpm.service
-#
-#sudo cp $PROJECT_DIR"/deployment/config/nginx.conf" /etc/nginx/nginx.conf
-# test the config so if it's not valid we don't try to reload it
-# sudo nginx -t
-# sudo systemctl reload nginx
+# sudo cp $PROJECT_DIR"/deployment/config/php-fpm/www.conf" /etc/php/8.0/fpm/pool.d/www.conf
+# sudo cp $PROJECT_DIR"/deployment/config/php-fpm/php.ini" /etc/php/8.0/fpm/conf.d/php.ini
+# sudo systemctl restart php8.0-fpm.service
 
-#sudo cp $PROJECT_DIR"/deployment/config/supervisor/supervisord.conf" /etc/supervisor/conf.d/supervisord.conf
-## update the config
-#sudo supervisorctl update
-## restart workers (notice the : at the end. it refers to the process group)
-#sudo supervisorctl restart workers:
+sudo cp $PROJECT_DIR"/deployment/config/nginx.conf" /etc/nginx/nginx.conf
+# test the config so if it's not valid we don't try to reload it
+sudo nginx -t
+sudo systemctl reload nginx
+
+# sudo cp $PROJECT_DIR"/deployment/config/supervisor/supervisord.conf" /etc/supervisor/conf.d/supervisord.conf
+# # update the config
+# sudo supervisorctl update
+# # restart workers (notice the : at the end. it refers to the process group)
+# sudo supervisorctl restart workers:
