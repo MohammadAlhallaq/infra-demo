@@ -1,24 +1,43 @@
 set -e
 
-echo "🚀 Starting deployment..."
+echo " Starting deployment..."
 
 cd /home/ubuntu/laravel-app
 
-echo "📥 Pulling latest code..."
+echo " Pulling latest code..."
 git pull origin main
 
-echo "🐳 Rebuilding containers..."
+echo " Setting up environment..."
+if [ ! -f .env ]; then
+    cp .env.example .env
+    docker run --rm -v .:/var/www php:8.3-cli bash -c "
+        cd /var/www && \
+        php artisan key:generate
+    "
+fi
+
+echo " Building and starting containers..."
 docker compose down
 docker compose up -d --build
 
-echo "⚙️ Running Laravel setup..."
+echo " Waiting for app container to be ready..."
+until docker exec laravel_app php -v > /dev/null 2>&1; do
+    sleep 1
+done
 
-docker exec laravel_app php artisan migrate --force || true
+echo " Installing Composer dependencies..."
+docker exec laravel_app composer install --no-dev --optimize-autoloader
+
+echo " Setting permissions..."
+docker exec laravel_app chown -R www-data:www-data storage bootstrap/cache
+
+echo " Running Laravel setup..."
+docker exec laravel_app php artisan migrate --force
 docker exec laravel_app php artisan config:cache
 docker exec laravel_app php artisan route:cache
 docker exec laravel_app php artisan view:cache
 
-echo "🧹 Cleaning old images..."
+echo " Cleaning old images..."
 docker image prune -f
 
-echo "✅ Deployment completed successfully!"
+echo " Deployment completed successfully!"

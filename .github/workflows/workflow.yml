@@ -8,7 +8,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-\
+
     steps:
       - name: Run deploy script on EC2
         uses: appleboy/ssh-action@v1.0.3
