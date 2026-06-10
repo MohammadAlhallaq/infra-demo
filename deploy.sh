@@ -2,7 +2,7 @@ set -e
 
 echo " Starting deployment..."
 
-cd /home/ubuntu/laravel-app
+cd /home/ubuntu/infra-demo
 
 echo " Pulling latest code..."
 git pull origin main

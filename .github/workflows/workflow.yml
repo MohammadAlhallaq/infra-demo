@@ -17,4 +17,4 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            bash /home/ubuntu/laravel-app/deploy.sh
+            bash /home/ubuntu/infra-demo/deploy.sh
