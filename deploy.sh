@@ -26,12 +26,22 @@ if [ ! -f .env ]; then
     docker exec -w /var/www laravel_app php artisan key:generate
 fi
 
+echo " Fetching DB_PASSWORD from SSM..."
+set -a && source .env && set +a
+DB_PASSWORD=$(aws ssm get-parameter \
+  --name "/infra-demo/DB_PASSWORD" \
+  --with-decryption \
+  --region us-west-2 \
+  --query Parameter.Value \
+  --output text)
+sed -i "s|DB_PASSWORD=.*|DB_PASSWORD=$DB_PASSWORD|" .env
+
 echo " Setting permissions..."
 docker exec laravel_app chown -R www-data:www-data storage bootstrap/cache
 
 echo " Creating database if it doesn't exist..."
 docker exec -w /var/www laravel_app bash -c "
-  mysql -h \$DB_HOST -u \$DB_USERNAME -p\$DB_PASSWORD -e \"CREATE DATABASE IF NOT EXISTS \$DB_DATABASE\" 2>/dev/null || true
+  mysql -h $DB_HOST -u $DB_USERNAME -p$DB_PASSWORD -e \"CREATE DATABASE IF NOT EXISTS $DB_DATABASE\" 2>/dev/null || true
 "
 
 echo " Running Laravel setup..."
