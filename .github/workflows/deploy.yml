@@ -64,6 +64,5 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             cd /home/ubuntu/infra-demo
-            git pull origin main
             export IMAGE=${{ steps.build-image.outputs.image }}
             bash deploy.sh
