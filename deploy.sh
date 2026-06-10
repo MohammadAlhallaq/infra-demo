@@ -28,7 +28,11 @@ fi
 
 echo " Installing AWS CLI if missing..."
 if ! command -v aws &> /dev/null; then
-  apt-get update -y && apt-get install -y awscli
+  sudo apt-get update -y && sudo apt-get install -y unzip
+  curl -sS "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "/tmp/awscliv2.zip" \
+  && unzip -q /tmp/awscliv2.zip -d /tmp \
+  && sudo /tmp/aws/install \
+  && rm -rf /tmp/aws /tmp/awscliv2.zip
 fi
 
 echo " Fetching DB_PASSWORD from SSM..."
