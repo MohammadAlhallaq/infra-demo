@@ -17,7 +17,13 @@ docker system prune -af
 
 echo " Building and starting containers..."
 docker compose down
-docker compose up -d --build
+if [ -n "$IMAGE" ]; then
+  docker pull "$IMAGE"
+  docker tag "$IMAGE" infra-demo-app:latest
+  docker compose up -d
+else
+  docker compose up -d --build
+fi
 
 echo " Waiting for app container to be ready..."
 until docker exec app php -v > /dev/null 2>&1; do

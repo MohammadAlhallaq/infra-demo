@@ -1,6 +1,7 @@
 services:
   app:
     build: .
+    image: infra-demo-app
     container_name: app
     volumes:
       - .:/var/www
