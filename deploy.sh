@@ -12,6 +12,9 @@ if [ ! -f .env ]; then
     cp .env.example .env
 fi
 
+echo " Cleaning up Docker disk space..."
+docker system prune -af
+
 echo " Building and starting containers..."
 docker compose down
 docker compose up -d --build
