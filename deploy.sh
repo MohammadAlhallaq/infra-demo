@@ -13,17 +13,17 @@ docker compose down
 docker compose up -d --build
 
 echo " Waiting for app container to be ready..."
-until docker exec laravel_app php -v > /dev/null 2>&1; do
+until docker exec app php -v > /dev/null 2>&1; do
     sleep 1
 done
 
 echo " Installing Composer dependencies..."
-docker exec -w /var/www laravel_app composer install --no-dev --optimize-autoloader
+docker exec -w /var/www app composer install --no-dev --optimize-autoloader
 
 echo " Setting up environment..."
 if [ ! -f .env ]; then
     cp .env.example .env
-    docker exec -w /var/www laravel_app php artisan key:generate
+    docker exec -w /var/www app php artisan key:generate
 fi
 
 echo " Fetching DB_PASSWORD from SSM..."
@@ -37,18 +37,18 @@ DB_PASSWORD=$(aws ssm get-parameter \
 sed -i "s|DB_PASSWORD=.*|DB_PASSWORD=$DB_PASSWORD|" .env
 
 echo " Setting permissions..."
-docker exec laravel_app chown -R www-data:www-data storage bootstrap/cache
+docker exec app chown -R www-data:www-data storage bootstrap/cache
 
 echo " Creating database if it doesn't exist..."
-docker exec -w /var/www laravel_app bash -c "
+docker exec -w /var/www app bash -c "
   mysql -h $DB_HOST -u $DB_USERNAME -p$DB_PASSWORD -e \"CREATE DATABASE IF NOT EXISTS $DB_DATABASE\" 2>/dev/null || true
 "
 
 echo " Running Laravel setup..."
-docker exec -w /var/www laravel_app php artisan migrate --force
-docker exec -w /var/www laravel_app php artisan config:cache
-docker exec -w /var/www laravel_app php artisan route:cache
-docker exec -w /var/www laravel_app php artisan view:cache
+docker exec -w /var/www app php artisan migrate --force
+docker exec -w /var/www app php artisan config:cache
+docker exec -w /var/www app php artisan route:cache
+docker exec -w /var/www app php artisan view:cache
 
 echo " Cleaning old images..."
 docker image prune -f

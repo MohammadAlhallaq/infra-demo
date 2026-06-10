@@ -1,7 +1,7 @@
 services:
   app:
     build: .
-    container_name: laravel_app
+    container_name: app
     volumes:
       - .:/var/www
 
