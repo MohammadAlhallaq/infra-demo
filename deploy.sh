@@ -17,6 +17,10 @@ docker system prune -af
 
 echo " Building and starting containers..."
 docker compose down
+
+echo " Logging into ECR..."
+aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 518473019356.dkr.ecr.us-west-2.amazonaws.com
+
 if [ -n "$IMAGE" ]; then
   docker pull "$IMAGE"
   docker tag "$IMAGE" infra-demo-app:latest
