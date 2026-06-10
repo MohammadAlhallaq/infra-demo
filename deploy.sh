@@ -26,6 +26,11 @@ if [ ! -f .env ]; then
     docker exec -w /var/www app php artisan key:generate
 fi
 
+echo " Installing AWS CLI if missing..."
+if ! command -v aws &> /dev/null; then
+  apt-get update -y && apt-get install -y awscli
+fi
+
 echo " Fetching DB_PASSWORD from SSM..."
 set -a && source .env && set +a
 DB_PASSWORD=$(aws ssm get-parameter \
