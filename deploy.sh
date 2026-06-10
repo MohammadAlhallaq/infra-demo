@@ -28,11 +28,31 @@ fi
 
 echo " Installing AWS CLI if missing..."
 if ! command -v aws &> /dev/null; then
-  sudo apt-get update -y && sudo apt-get install -y unzip
-  curl -sS "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "/tmp/awscliv2.zip" \
-  && unzip -q /tmp/awscliv2.zip -d /tmp \
-  && sudo /tmp/aws/install \
-  && rm -rf /tmp/aws /tmp/awscliv2.zip
+  # Try installing unzip via apt with lock-wait
+  if command -v apt-get &> /dev/null; then
+    sudo apt-get update -y 2>/dev/null || true
+    sudo apt-get install -y unzip 2>/dev/null || true
+  fi
+
+  # Try the standard bundled installer (needs unzip)
+  if command -v unzip &> /dev/null; then
+    curl -sS "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "/tmp/awscliv2.zip" \
+    && unzip -q /tmp/awscliv2.zip -d /tmp \
+    && sudo /tmp/aws/install \
+    && rm -rf /tmp/aws /tmp/awscliv2.zip
+  fi
+
+  # Fallback: install via pip
+  if ! command -v aws &> /dev/null; then
+    echo " Trying pip install as fallback..."
+    pip3 install awscli --user 2>/dev/null || pip install awscli --user 2>/dev/null || true
+  fi
+fi
+
+# Exit if AWS CLI is still missing
+if ! command -v aws &> /dev/null; then
+  echo " ERROR: AWS CLI could not be installed. Aborting."
+  exit 1
 fi
 
 echo " Fetching DB_PASSWORD from SSM..."
