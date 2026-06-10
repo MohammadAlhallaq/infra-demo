@@ -31,7 +31,7 @@ docker exec laravel_app chown -R www-data:www-data storage bootstrap/cache
 
 echo " Creating database if it doesn't exist..."
 docker exec -w /var/www laravel_app bash -c "
-  PGPASSWORD=\$DB_PASSWORD psql -h \$DB_HOST -U \$DB_USERNAME -d postgres -c \"CREATE DATABASE \$DB_DATABASE\" 2>/dev/null || true
+  mysql -h \$DB_HOST -u \$DB_USERNAME -p\$DB_PASSWORD -e \"CREATE DATABASE IF NOT EXISTS \$DB_DATABASE\" 2>/dev/null || true
 "
 
 echo " Running Laravel setup..."
