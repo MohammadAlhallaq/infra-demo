@@ -4,14 +4,6 @@ echo " Starting deployment..."
 
 cd /home/ubuntu/infra-demo
 
-echo " Pulling latest code..."
-git pull origin main
-
-echo " Setting up environment..."
-if [ ! -f .env ]; then
-    cp .env.example .env
-fi
-
 echo " Cleaning up Docker disk space..."
 docker system prune -af
 
@@ -35,10 +27,7 @@ until docker exec app php -v > /dev/null 2>&1; do
 done
 
 echo " Generating app key if missing..."
-docker exec -w /var/www app php artisan key:generate --force
-
-echo " Installing Composer dependencies..."
-docker exec -w /var/www app composer install --no-dev --optimize-autoloader
+docker exec -w /var/www app php artisan key:generate
 
 echo " Installing AWS CLI if missing..."
 if ! command -v aws &> /dev/null; then

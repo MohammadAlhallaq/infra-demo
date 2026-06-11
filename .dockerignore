@@ -1,0 +1,8 @@
+.env
+.git
+.gitattributes
+.gitignore
+.github
+vendor
+node_modules
+storage
