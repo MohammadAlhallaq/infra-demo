@@ -3,12 +3,14 @@ services:
     build: .
     image: infra-demo-app
     container_name: app
+    restart: unless-stopped
     volumes:
       - ./.env:/var/www/.env
       - app_storage:/var/www/storage
 
   nginx:
     image: nginx:alpine
+    restart: unless-stopped
     ports:
       - "80:80"
     volumes:

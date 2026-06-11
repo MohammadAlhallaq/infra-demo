@@ -5,3 +5,7 @@
 .github
 vendor
 node_modules
+storage
+Dockerfile
+docker-compose.yaml
+docker-compose.yml

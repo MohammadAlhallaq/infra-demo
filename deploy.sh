@@ -4,9 +4,6 @@ echo " Starting deployment..."
 
 cd /home/ubuntu/infra-demo
 
-echo " Cleaning up Docker disk space..."
-docker system prune -af
-
 echo " Building and starting containers..."
 docker compose down
 
@@ -62,6 +59,9 @@ DB_PASSWORD=$(aws ssm get-parameter \
   --query Parameter.Value \
   --output text)
 sed -i "s|DB_PASSWORD=.*|DB_PASSWORD=$DB_PASSWORD|" .env
+
+echo " Creating storage directories..."
+docker exec -w /var/www app mkdir -p storage/framework/cache storage/framework/sessions storage/framework/views storage/logs
 
 echo " Setting permissions..."
 docker exec app chown -R www-data:www-data storage bootstrap/cache

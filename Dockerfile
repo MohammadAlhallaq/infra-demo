@@ -14,4 +14,6 @@ COPY . .
 ARG COMPOSER_AUTH=
 RUN COMPOSER_AUTH="$COMPOSER_AUTH" composer install --no-dev --optimize-autoloader
 
+RUN mkdir -p storage/framework/cache storage/framework/sessions storage/framework/views storage/logs
+
 CMD ["php-fpm"]
