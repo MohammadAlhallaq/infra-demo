@@ -60,9 +60,6 @@ DB_PASSWORD=$(aws ssm get-parameter \
   --output text)
 sed -i "s|DB_PASSWORD=.*|DB_PASSWORD=$DB_PASSWORD|" .env
 
-echo " Creating storage directories..."
-docker exec -w /var/www app mkdir -p storage/framework/cache storage/framework/sessions storage/framework/views storage/logs
-
 echo " Setting permissions..."
 docker exec app chown -R www-data:www-data storage bootstrap/cache
 

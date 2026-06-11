@@ -14,6 +14,8 @@ COPY . .
 ARG COMPOSER_AUTH=
 RUN COMPOSER_AUTH="$COMPOSER_AUTH" composer install --no-dev --optimize-autoloader
 
-RUN mkdir -p storage/framework/cache storage/framework/sessions storage/framework/views storage/logs
+COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
 
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 CMD ["php-fpm"]
